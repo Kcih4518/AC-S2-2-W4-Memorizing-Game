@@ -31,9 +31,21 @@ const view = {
   },
   displayCards() {
     const rootElement = document.querySelector("#cards");
-    rootElement.innerHTML = Array.from(Array(52).keys())
+    rootElement.innerHTML = utility.getRandomNumberArray(52)
       .map((index) => this.getCardElement(index))
       .join("");
   },
 };
+
+const utility = {
+    getRandomNumberArray (count) {
+      const number = Array.from(Array(count).keys())
+      for (let index = number.length - 1; index > 0; index--) {
+        let randomIndex = Math.floor(Math.random() * (index + 1))
+          ;[number[index], number[randomIndex]] = [number[randomIndex], number[index]]
+      }
+      return number
+    }
+  }
+
 view.displayCards();
