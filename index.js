@@ -64,6 +64,13 @@ const view = {
       card.classList.add("paired");
     });
   },
+  renderScore(score) {
+    document.querySelector(".score").innerHTML = `Score: ${score}`;
+  },
+
+  renderTriedTimes(times) {
+    document.querySelector(".tried").innerHTML = `You've tried: ${times} times`;
+  },
 };
 const model = {
   revealedCards: [],
@@ -73,6 +80,8 @@ const model = {
       this.revealedCards[1].dataset.index % 13
     );
   },
+  score: 0,
+  triedTimes: 0,
 };
 const controller = {
   currentState: GAME_STATE.FirstCardAwaits,
@@ -90,11 +99,13 @@ const controller = {
         this.currentState = GAME_STATE.SecondCardAwaits;
         break;
       case GAME_STATE.SecondCardAwaits:
+        view.renderTriedTimes(++model.triedTimes);
         view.flipCards(card);
         model.revealedCards.push(card);
         // 判斷配對是否成功
         if (model.isRevealedCardsMatched()) {
           // 配對成功
+          view.renderScore((model.score += 10));
           this.currentState = GAME_STATE.CardsMatched;
           view.pairCards(...model.revealedCards);
           model.revealedCards = [];
