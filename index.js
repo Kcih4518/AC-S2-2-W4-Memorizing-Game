@@ -71,6 +71,16 @@ const view = {
   renderTriedTimes(times) {
     document.querySelector(".tried").innerHTML = `You've tried: ${times} times`;
   },
+  appendWrongAnimation(...cards) {
+    cards.map((card) => {
+      card.classList.add("wrong");
+      card.addEventListener(
+        "animationend",
+        (event) => event.target.classList.remove("wrong"),
+        { once: true }
+      );
+    });
+  },
 };
 const model = {
   revealedCards: [],
@@ -113,6 +123,7 @@ const controller = {
         } else {
           // 配對失敗
           this.currentState = GAME_STATE.CardsMatchFailed;
+          view.appendWrongAnimation(...model.revealedCards);
           setTimeout(this.resetCards, 1000);
         }
         break;

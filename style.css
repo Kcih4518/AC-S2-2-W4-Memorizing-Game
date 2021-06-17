@@ -2,7 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   width: 85%; /* 新增：寬度和標頭一致 */
-  margin: 0 auto;  /* 新增：置中 */
+  margin: 0 auto; /* 新增：置中 */
 }
 .card {
   /* card outside */
@@ -63,4 +63,15 @@
 }
 #header .tried {
   margin-top: 0;
+}
+
+.wrong {
+  animation-name: wrongAnimation;
+  animation-duration: 0.2s;
+  animation-iteration-count: 5;
+}
+@keyframes wrongAnimation {
+  to {
+    border: 2px solid #ffd54f;
+  }
 }
